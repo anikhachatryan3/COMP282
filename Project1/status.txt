@@ -1,0 +1,5 @@
+Ani Khachatryan - Project 1
+The program is finding the upper and lower bounds correctly. I am currently 
+finishing the user input portion of the code. Even though some lines in my methods 
+look long, they do not pass 80 characters. The only problem with formatting might be 
+that my main method in Driver 1 might be a bit too long.
