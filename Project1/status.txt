@@ -1,5 +1,8 @@
 Ani Khachatryan - Project 1
-The program is finding the upper and lower bounds correctly. I am currently 
-finishing the user input portion of the code. Even though some lines in my methods 
-look long, they do not pass 80 characters. The only problem with formatting might be 
-that my main method in Driver 1 might be a bit too long.
+The program is finding the upper and lower bounds 
+correctly. It is taking the user input and
+determining whether that input is inside or outside 
+the convex hull/boundaries correctly. Even though some of 
+the lines in my methods look long, they do not 
+pass 80 characters. My methods may also look long, but
+they do not pass 30 lines.

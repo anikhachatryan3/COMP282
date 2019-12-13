@@ -3,9 +3,6 @@
 //Class: COMP282
 //File: Point.java
 
-import java.util.*;
-import java.io.*;
-
 class Point implements Comparable<Point> {
     private int x;
     private int y;
@@ -24,8 +21,8 @@ class Point implements Comparable<Point> {
     }
 
     @Override
-    public int compareTo(Point co) {
-        int compareX = ((Point)co).getX();
-        return this.x - compareX;
+    public int compareTo(Point c2) {
+        int xVal = ((Point)c2).getX();
+        return this.x - xVal;
     }
 }
