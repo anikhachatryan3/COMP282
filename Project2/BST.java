@@ -3,16 +3,16 @@
 //Class: COMP282
 //File: BST.java
 
-import java.util.Scanner;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class BST {
 
+    //creating needed vars
     public static double sumBST = 0;
     public static double count = 0;
 
-    public Node root;   //was static
+    public Node root;
     public BST() {
         this.root = null;
     }

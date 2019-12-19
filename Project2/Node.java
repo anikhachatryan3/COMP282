@@ -5,6 +5,7 @@
 
 class Node {
 
+    //creating the vars needed
     int data;
     Node left;
     Node right;
@@ -19,6 +20,7 @@ class Node {
         this.color = 1;
     }
 
+    //setting all vars needed
     public Node(int data, Node parent, Node left, Node right, int color) {
         this.data = data;
         this.parent = parent;
@@ -27,31 +29,9 @@ class Node {
         this.color = color;
     }
 
+    //method used to find if node is black
     public boolean isBlack() {
         return (this.color == 0);
     }
-
-    public void setValues(
-        
-    ) {
-        ;
-    }
-
-    // public static void isBlack(rbnode root) {
-    //     if (root == null)
-    //         return; 
-
-    //     if (root.color == 0) {
-    //         root.black_count = root.parent.black_count+1;
-
-    //     } else {
-    //         root.black_count = root.parent.black_count;
-    //     }
-    //     if ((root.left == null) && (root.right == null)) {              
-    //         bh = root.black_count;              
-    //     }               
-    //     isBlack(root.left);
-    //     isBlack(root.right);
-    // } 
 
 }

@@ -3,46 +3,49 @@
 //Class: COMP282
 //File: RBT.java
 
-import java.util.Scanner;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class RBT {
 
-    public Node root;
-    public Node NNULL;
-    public static double sumBST = 0;
-    public static double count = 0;
-    
-    private void preOrderTraversal(Node node) {
-      if(node != NNULL) {
-        preOrderTraversal(node.left);
-        preOrderTraversal(node.right);
-      }
+  //creating vars needed
+  public Node root;
+  public Node NNULL;
+  public static double sumBST = 0;
+  public static double count = 0;
+  
+  //method to actually traverse tree
+  private void preOrderTraversal(Node node) {
+    if(node != NNULL) {
+      preOrderTraversal(node.left);
+      preOrderTraversal(node.right);
     }
-
-    public static void RBTCombos(int num, int[] arr) {
-      if(num == 1) {
-        RBT bst = printArr(arr);
-        int height = bst.getHeight(bst.root);
-        bst.preOrderTraversal(bst.root);
-        sumBST += height;
-        count++;
-      }
-      else {
-        for(int i = 0; i < num-1; i++) {
-          RBTCombos(num-1, arr);
-          if(num%2 == 0) {
-            swap(arr, i, num-1);
-          }
-          else {
-            swap(arr, 0, num-1);
-          }
-        }
-        RBTCombos(num-1, arr);
-      }
   }
 
+  //gets all possible permutations/combinations
+  public static void RBTCombos(int num, int[] arr) {
+    if(num == 1) {
+      RBT bst = printArr(arr);
+      int height = bst.getHeight(bst.root);
+      bst.preOrderTraversal(bst.root);
+      sumBST += height;
+      count++;
+    }
+    else {
+      for(int i = 0; i < num-1; i++) {
+        RBTCombos(num-1, arr);
+        if(num%2 == 0) {
+          swap(arr, i, num-1);
+        }
+        else {
+          swap(arr, 0, num-1);
+        }
+      }
+      RBTCombos(num-1, arr);
+    }
+  }
+
+  //method to get tree's height
   public int getHeight(Node root) {
     if(root == NNULL) {
       return 1;
@@ -79,6 +82,7 @@ public class RBT {
     return bst;
   }
 
+  //method to actually search the tree
   private Node searchTreeHelper(Node node, int key) {
     if(node == NNULL || key == node.data) {
       return node;
@@ -89,6 +93,7 @@ public class RBT {
     return searchTreeHelper(node.right, key);
   }
 
+  //method to update the node's color
   private void updateColor(Node n, String child) {
     Node m = (child == "left" ? n.parent.parent.left : n.parent.parent.right);
     if(m.color == 1) {
@@ -115,6 +120,7 @@ public class RBT {
     }
   }
 
+  //method to fix coloring of nodes
   private void fixColor(Node n) {
     while(n.parent.color == 1) {
       if(n.parent == n.parent.parent.right) {
@@ -137,14 +143,17 @@ public class RBT {
     root = NNULL;
   }
 
+  //calls method to traverse tree
   public void preOrderTraverse() {
     preOrderTraversal(this.root);
   }
  
+  //calls method to search tree
   public Node searchTree(int k) {
     return searchTreeHelper(this.root, k);
   }
-    
+  
+  //left side of tree
   public void turnLeft(Node x) {
     Node y = x.right;
     x.right = y.left;
@@ -165,6 +174,7 @@ public class RBT {
     x.parent = y;
   }
 
+  //right side of tree
   public void turnRight(Node x) {
     Node y = x.left;
     x.left = y.right;
@@ -185,49 +195,53 @@ public class RBT {
     x.parent = y;
   }
 
-    public void insert(int key) {
-      Node node = new Node(key, null, NNULL, NNULL, 1);
-      Node y = null;
-      Node x = this.root;
-      while(x != NNULL) {
-        y = x;
-        if(node.data < x.data) {
-          x = x.left;
-        } else {
-          x = x.right;
-        }
-      }
-      node.parent = y;
-      if(y == null) {
-        root = node;
-      } else if(node.data < y.data) {
-        y.left = node;
+  //method to insert nodes
+  public void insert(int key) {
+    Node node = new Node(key, null, NNULL, NNULL, 1);
+    Node y = null;
+    Node x = this.root;
+    while(x != NNULL) {
+      y = x;
+      if(node.data < x.data) {
+        x = x.left;
       } else {
-        y.right = node;
+        x = x.right;
       }
-      if(node.parent == null) {
-        node.color = 0;
-        return;
-      }
-      if(node.parent.parent == null) {
-        return;
-      }
-      fixColor(node);
     }
+    node.parent = y;
+    if(y == null) {
+      root = node;
+    } else if(node.data < y.data) {
+      y.left = node;
+    } else {
+      y.right = node;
+    }
+    if(node.parent == null) {
+      node.color = 0;
+      return;
+    }
+    if(node.parent.parent == null) {
+      return;
+    }
+    fixColor(node);
+  }
 
-    public void interactRBT(int rb) {
-        //getting four decimal places
-        DecimalFormat newForm = new DecimalFormat("0.0000");
-        newForm.setRoundingMode(RoundingMode.DOWN);
-        int[] arr = new int[rb];
-        for(int j = 0; j < rb; j++) {
-          arr[j] = j+1;
-        }
-        //find all possible combos
-        RBTCombos(rb, arr);
-        double heightBST = sumBST/count;
-        String rbA = newForm.format(heightBST);
-        System.out.print("The average height of a RBT with " + rb + " nodes is " + rbA);
-        System.out.println();
+  //method to interact with user
+  public void interactRBT(int rb) {
+    //getting four decimal places
+    DecimalFormat newForm = new DecimalFormat("0.0000");
+    newForm.setRoundingMode(RoundingMode.DOWN);
+    int[] arr = new int[rb];
+    //inserts the amount of "nodes" into array
+    for(int j = 0; j < rb; j++) {
+      arr[j] = j+1;
     }
+    //find all possible combos
+    RBTCombos(rb, arr);
+    double heightBST = sumBST/count;
+    String rbA = newForm.format(heightBST);
+    System.out.print("The average height of a RBT with " + rb + " nodes is " + rbA);
+    System.out.println();
+  }
+
 }
