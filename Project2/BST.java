@@ -91,30 +91,52 @@ public class BST {
 
     //insert node method
     public void insert(int id) {
-        Node newNode = new Node(id);
-        if(root == null) {
-            root = newNode;
-            return;
-        }
-        Node current = root;
-        Node parent = null;
-        while(true) {
-            parent = current;
-            if(id < current.data) {			
-                current = current.left;
-                if(current == null) {
-                    parent.left = newNode;
-                    return;
-                }
-            }
-            else {
-                current = current.right;
-                if(current == null) {
-                    parent.right = newNode;
-                    return;
-                }
-            }
-        }
+        root = insertRecursion(root, id);
+        // Node newNode = new Node(id);
+        // if(root == null) {
+        //     root = newNode;
+        //     return;
+        // }
+        // Node current = root;
+        // Node parent = null;
+        // while(current != null) {
+        //     System.out.println("ani");
+        //     parent = current;
+        //     if(id < current.data) {			
+        //         current = current.left;
+        //         if(current == null) {
+        //             parent.left = newNode;
+        //             return;
+        //         }
+        //     }
+        //     else {
+        //         current = current.right;
+        //         if(current == null) {
+        //             parent.right = newNode;
+        //             return;
+        //         }
+        //     }
+        // }
+    }
+
+    public Node insertRecursion(Node root, int key) {
+        if (root == null) {
+			return new Node(key);
+		}
+
+		// if given key is less than the root node,
+		// recur for left subtree
+		if (key < root.data) {
+			root.left = insertRecursion(root.left, key);
+		}
+
+		// else recur for right subtree
+		else {
+			// key >= root.data
+			root.right = insertRecursion(root.right, key);
+		}
+
+		return root;
     }
 
     //Preorder Traversal Method
@@ -153,10 +175,9 @@ public class BST {
 
     //interacts with user
     public void interactBST(int bs) {
+        //getting four decimal places
         DecimalFormat newForm = new DecimalFormat("0.0000");
         newForm.setRoundingMode(RoundingMode.DOWN);
-        // Scanner val = new Scanner(System.in);
-        // int bs = Integer.parseInt(val);
         int[] arr = new int[bs];
         for(int j = 0; j < bs; j++) {
             arr[j] = j+1;
@@ -166,6 +187,7 @@ public class BST {
         double heightBST = sumBST/count;
         String bsA = newForm.format(heightBST);
         System.out.print("The average height of a BST with " + bs + " nodes is " + bsA);
+        System.out.println();
     }
 
 }

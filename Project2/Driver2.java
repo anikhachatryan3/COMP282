@@ -11,9 +11,15 @@ class Driver2 {
         RBT rbt = new RBT();                        //new object for RBT
         bst.printIntro();                           //printing introduction
         Scanner val = new Scanner(System.in);       //new scanner for user input
-        int bs = Integer.parseInt(val.nextLine());  //changing user input to int
-        bst.interactBST(bs);                        //interacting with user for BST
-        rbt.interactRBT(bs);                        //interacting with user for RBT
-        val.close();                                //closing scanner/program done
+        int bs = val.nextInt();  //changing user input to int
+        val.close();                            //closing scanner/program done
+        if(bs == 1) {
+            System.out.println("The average height of a BST with 1 node is 1.");
+            System.out.println("The average height of a RBT with 1 node is 1.");
+        }
+        else {
+            bst.interactBST(bs);                    //interacting with user for BST
+            rbt.interactRBT(bs);                    //interacting with user for RBT
+        }
     }
 }
