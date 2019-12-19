@@ -60,15 +60,15 @@ public class BST {
     public void insert(int id) {
         root = insertRecursion(root, id);
     }
-    public Node insertRecursion(Node root, int key) {
+    public Node insertRecursion(Node root, int num) {
         if(root == null) {
-			return new Node(key);
+			return new Node(num);
 		}
-		if(key < root.data) {
-			root.left = insertRecursion(root.left, key);
+		if(num < root.data) {
+			root.left = insertRecursion(root.left, num);
 		}
 		else {
-			root.right = insertRecursion(root.right, key);
+			root.right = insertRecursion(root.right, num);
 		}
 		return root;
     }

@@ -6,7 +6,7 @@ does not surpass 30 lines. However, when I enter numbers like 11 and above,
 it starts to take a long time to get the output, but it does give an output.
 I have tested numbers bigger than 10, and it takes a fairly long time to get 
 the output, but it does end up giving the output after waiting a while. I 
-also did not make a lot of comments, but there are still a fairly good amount 
-of comments.
+also did not make a lot of comments since my main focus was to get the program 
+to work, but there are still a fair amount of comments.
 
 Note: The bigger the entered number, the longer it takes.

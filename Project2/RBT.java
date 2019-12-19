@@ -68,9 +68,9 @@ public class RBT {
 
   //method to swap
   private static void swap(int[] input, int a, int b) {
-    int tmp = input[a];
+    int temp = input[a];
     input[a] = input[b];
-    input[b] = tmp;
+    input[b] = temp;
   }
 
   //print array of nodes/inputs method
@@ -83,18 +83,19 @@ public class RBT {
   }
 
   //method to actually search the tree
-  private Node searchTreeHelper(Node node, int key) {
-    if(node == NNULL || key == node.data) {
+  private Node searchTreeHelper(Node node, int num) {
+    if(node == NNULL || num == node.data) {
       return node;
     }
-    if(key < node.data) {
-      return searchTreeHelper(node.left, key);
+    if(num < node.data) {
+      return searchTreeHelper(node.left, num);
     }
-    return searchTreeHelper(node.right, key);
+    return searchTreeHelper(node.right, num);
   }
 
   //method to update the node's color
   private void updateColor(Node n, String child) {
+    //if curr node is left child, update left
     Node m = (child == "left" ? n.parent.parent.left : n.parent.parent.right);
     if(m.color == 1) {
       m.color = 0;
@@ -102,6 +103,7 @@ public class RBT {
       n.parent.parent.color = 1;
       n = n.parent.parent;
     } else {
+      //if curr node is left child, update left
       if(n == (child == "left" ? n.parent.left : n.parent.right)) {
         n = n.parent;
         if(child == "left") {
@@ -157,8 +159,8 @@ public class RBT {
   public void turnLeft(Node x) {
     Node y = x.right;
     x.right = y.left;
-    if(y.left != NNULL) {
-      y.left.parent = x;
+    if(y.left != NNULL) {   //if left side is not null
+      y.left.parent = x;    //go down tree
     }
     y.parent = x.parent;
     if(x.parent == null) {
@@ -178,8 +180,8 @@ public class RBT {
   public void turnRight(Node x) {
     Node y = x.left;
     x.left = y.right;
-    if(y.right != NNULL) {
-      y.right.parent = x;
+    if(y.right != NNULL) {    //if right side is not null
+      y.right.parent = x;     //go down the tree
     }
     y.parent = x.parent;
     if(x.parent == null) {
@@ -196,25 +198,25 @@ public class RBT {
   }
 
   //method to insert nodes
-  public void insert(int key) {
-    Node node = new Node(key, null, NNULL, NNULL, 1);
-    Node y = null;
-    Node x = this.root;
-    while(x != NNULL) {
-      y = x;
-      if(node.data < x.data) {
-        x = x.left;
+  public void insert(int num) {
+    Node node = new Node(num, null, NNULL, NNULL, 1);
+    Node curr = null;
+    Node par = this.root;
+    while(par != NNULL) {
+      curr = par;
+      if(node.data < par.data) {
+        par = par.left;
       } else {
-        x = x.right;
+        par = par.right;
       }
     }
-    node.parent = y;
-    if(y == null) {
+    node.parent = curr;
+    if(curr == null) {
       root = node;
-    } else if(node.data < y.data) {
-      y.left = node;
+    } else if(node.data < curr.data) {
+      curr.left = node;
     } else {
-      y.right = node;
+      curr.right = node;
     }
     if(node.parent == null) {
       node.color = 0;
