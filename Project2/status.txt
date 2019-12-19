@@ -2,6 +2,8 @@ Ani Khachatryan - Project 2
 
 The program works as required. It compiles/runs and it gives the correct 
 output. Each line also does not surpass 80 characters, and each method
-does not surpass 30 lines. However, when I enter 11 and above, it gets 
-stuck for some reason. I tried many things to fix it, but it either takes 
-a long time or it gets stuck.
+does not surpass 30 lines. However, when I enter numbers like 11 and above, 
+it starts to take a long time to get the output, but it does give an output.
+I have tested numbers bigger than 10, and it takes a fairly long time to get 
+the output, but it does end up giving the output after waiting. 
+Note: the bigger the entered number, the longer it takes.

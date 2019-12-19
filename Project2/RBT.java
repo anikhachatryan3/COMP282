@@ -10,12 +10,12 @@ import java.text.DecimalFormat;
 public class RBT {
 
     public Node root;
-    public Node TNULL;
+    public Node NNULL;
     public static double sumBST = 0;
     public static double count = 0;
     
     private void preOrderTraversal(Node node) {
-      if (node != TNULL) {
+      if(node != NNULL) {
         preOrderTraversal(node.left);
         preOrderTraversal(node.right);
       }
@@ -44,7 +44,7 @@ public class RBT {
   }
 
   public int getHeight(Node root) {
-    if(root == TNULL) {
+    if(root == NNULL) {
       return 1;
     }
     int leftBlackHeight = getHeight(root.left);
@@ -80,7 +80,7 @@ public class RBT {
   }
 
   private Node searchTreeHelper(Node node, int key) {
-    if(node == TNULL || key == node.data) {
+    if(node == NNULL || key == node.data) {
       return node;
     }
     if(key < node.data) {
@@ -89,129 +89,127 @@ public class RBT {
     return searchTreeHelper(node.right, key);
   }
 
-  private void fixColor(Node n) {
-    Node m;
-    while(n.parent.color == 1) {
-      if(n.parent == n.parent.parent.right) {
-        m = n.parent.parent.left;
-        if(m.color == 1) {
-          m.color = 0;
-          n.parent.color = 0;
-          n.parent.parent.color = 1;
-          n = n.parent.parent;
+  private void updateColor(Node n, String child) {
+    Node m = (child == "left" ? n.parent.parent.left : n.parent.parent.right);
+    if(m.color == 1) {
+      m.color = 0;
+      n.parent.color = 0;
+      n.parent.parent.color = 1;
+      n = n.parent.parent;
+    } else {
+      if(n == (child == "left" ? n.parent.left : n.parent.right)) {
+        n = n.parent;
+        if(child == "left") {
+          turnRight(n);
         } else {
-          if (n == n.parent.left) {
-            n = n.parent;
-            turnRight(n);
-          }
-          n.parent.color = 0;
-          n.parent.parent.color = 1;
-          turnLeft(n.parent.parent);
-        }
-      } else {
-        m = n.parent.parent.right;
-        if (m.color == 1) {
-          m.color = 0;
-          n.parent.color = 0;
-          n.parent.parent.color = 1;
-          n = n.parent.parent;
-        } else {
-          if (n == n.parent.right) {
-            n = n.parent;
-            turnLeft(n);
-          }
-          n.parent.color = 0;
-          n.parent.parent.color = 1;
-          turnRight(n.parent.parent);
+          turnLeft(n);
         }
       }
-      if (n == root) {
+      n.parent.color = 0;
+      n.parent.parent.color = 1;
+      if(child == "left") {
+        turnLeft(n.parent.parent);
+      } else {
+        turnRight(n.parent.parent);
+      }
+    }
+  }
+
+  private void fixColor(Node n) {
+    while(n.parent.color == 1) {
+      if(n.parent == n.parent.parent.right) {
+        updateColor(n, "left");
+      } else {
+        updateColor(n, "right");
+      }
+      if(n == root) {
         break;
       }
     }
     root.color = 0;
   }
 
-    public RBT() {
-        TNULL = new Node(-1);
-        TNULL.color = 0;
-        TNULL.left = null;
-        TNULL.right = null;
-        root = TNULL;
-    }
+  public RBT() {
+    NNULL = new Node(-1);
+    NNULL.color = 0;
+    NNULL.left = null;
+    NNULL.right = null;
+    root = NNULL;
+  }
 
-    public void preOrderTraverse() {
-        preOrderTraversal(this.root);
-    }
+  public void preOrderTraverse() {
+    preOrderTraversal(this.root);
+  }
  
-    public Node searchTree(int k) {
-        return searchTreeHelper(this.root, k);
-    }
+  public Node searchTree(int k) {
+    return searchTreeHelper(this.root, k);
+  }
     
-    public void turnLeft(Node x) {
-        Node y = x.right;
-        x.right = y.left;
-        if (y.left != TNULL) {
-            y.left.parent = x;
-        }
-        y.parent = x.parent;
-        if (x.parent == null) {
-            this.root = y;
-        } else if (x == x.parent.left) {
-            x.parent.left = y;
-        } else {
-            x.parent.right = y;
-        }
-        y.left = x;
-        x.parent = y;
+  public void turnLeft(Node x) {
+    Node y = x.right;
+    x.right = y.left;
+    if(y.left != NNULL) {
+      y.left.parent = x;
     }
-    public void turnRight(Node x) {
-      Node y = x.left;
-      x.left = y.right;
-      if (y.right != TNULL) {
-        y.right.parent = x;
-      }
-      y.parent = x.parent;
-      if (x.parent == null) {
-        this.root = y;
-      } else if (x == x.parent.right) {
-        x.parent.right = y;
-      } else {
-        x.parent.left = y;
-      }
-      y.right = x;
-      x.parent = y;
+    y.parent = x.parent;
+    if(x.parent == null) {
+      this.root = y;
+    } 
+    else if(x == x.parent.left) {
+      x.parent.left = y;
+    } 
+    else {
+      x.parent.right = y;
     }
+    y.left = x;
+    x.parent = y;
+  }
+
+  public void turnRight(Node x) {
+    Node y = x.left;
+    x.left = y.right;
+    if(y.right != NNULL) {
+      y.right.parent = x;
+    }
+    y.parent = x.parent;
+    if(x.parent == null) {
+      this.root = y;
+    } 
+    else if(x == x.parent.right) {
+      x.parent.right = y;
+    } 
+    else {
+      x.parent.left = y;
+    }
+    y.right = x;
+    x.parent = y;
+  }
+
     public void insert(int key) {
-      Node node = new Node(key);
-      node.parent = null;
-      node.data = key;
-      node.left = TNULL;
-      node.right = TNULL;
-      node.color = 1;
+      Node node = new Node(key, null, NNULL, NNULL, 1);
       Node y = null;
       Node x = this.root;
-      while (x != TNULL) {
+      while(x != NNULL) {
         y = x;
-        if (node.data < x.data) {
+        if(node.data < x.data) {
           x = x.left;
         } else {
           x = x.right;
         }
       }
       node.parent = y;
-      if (y == null) {
+      if(y == null) {
         root = node;
-      } else if (node.data < y.data) {
+      } else if(node.data < y.data) {
         y.left = node;
       } else {
         y.right = node;
       }
-      if (node.parent == null) {
+      if(node.parent == null) {
         node.color = 0;
         return;
       }
-      if (node.parent.parent == null) {
+      if(node.parent.parent == null) {
         return;
       }
       fixColor(node);
@@ -223,7 +221,7 @@ public class RBT {
         newForm.setRoundingMode(RoundingMode.DOWN);
         int[] arr = new int[rb];
         for(int j = 0; j < rb; j++) {
-            arr[j] = j+1;
+          arr[j] = j+1;
         }
         //find all possible combos
         RBTCombos(rb, arr);

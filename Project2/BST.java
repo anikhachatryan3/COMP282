@@ -16,39 +16,6 @@ public class BST {
     public BST() {
         this.root = null;
     }
-    
-    // public boolean BSTfind(int id) {
-    //     Node current = root;
-    //     while(current != null) {
-    //         if(current.data == id) {
-    //             return true;
-    //         }
-    //         else if(current.data > id) {
-    //             current = current.left;
-    //         }
-    //         else {
-    //             current = current.right;
-    //         }
-    //     }
-    //     return false;
-    // }
-
-    // //find Node in tree
-    // public Node findNode(int id) {
-    //     Node current = root;
-    //     while(current != null) {
-    //         if(current.data == id) {
-    //             return current;
-    //         }
-    //         else if(current.data > id) {
-    //             current = current.left;
-    //         }
-    //         else {
-    //             current = current.right;
-    //         }
-    //     }
-    //     return null;
-    // }
 
     //gets all possible combos/permutations for BST
     public static void BSTCombos(int num, int[] arr) {
@@ -92,50 +59,17 @@ public class BST {
     //insert node method
     public void insert(int id) {
         root = insertRecursion(root, id);
-        // Node newNode = new Node(id);
-        // if(root == null) {
-        //     root = newNode;
-        //     return;
-        // }
-        // Node current = root;
-        // Node parent = null;
-        // while(current != null) {
-        //     System.out.println("ani");
-        //     parent = current;
-        //     if(id < current.data) {			
-        //         current = current.left;
-        //         if(current == null) {
-        //             parent.left = newNode;
-        //             return;
-        //         }
-        //     }
-        //     else {
-        //         current = current.right;
-        //         if(current == null) {
-        //             parent.right = newNode;
-        //             return;
-        //         }
-        //     }
-        // }
     }
-
     public Node insertRecursion(Node root, int key) {
-        if (root == null) {
+        if(root == null) {
 			return new Node(key);
 		}
-
-		// if given key is less than the root node,
-		// recur for left subtree
-		if (key < root.data) {
+		if(key < root.data) {
 			root.left = insertRecursion(root.left, key);
 		}
-
-		// else recur for right subtree
 		else {
-			// key >= root.data
 			root.right = insertRecursion(root.right, key);
 		}
-
 		return root;
     }
 

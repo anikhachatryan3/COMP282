@@ -19,8 +19,22 @@ class Node {
         this.color = 1;
     }
 
+    public Node(int data, Node parent, Node left, Node right, int color) {
+        this.data = data;
+        this.parent = parent;
+        this.left = left;
+        this.right = right;
+        this.color = color;
+    }
+
     public boolean isBlack() {
         return (this.color == 0);
+    }
+
+    public void setValues(
+        
+    ) {
+        ;
     }
 
     // public static void isBlack(rbnode root) {
